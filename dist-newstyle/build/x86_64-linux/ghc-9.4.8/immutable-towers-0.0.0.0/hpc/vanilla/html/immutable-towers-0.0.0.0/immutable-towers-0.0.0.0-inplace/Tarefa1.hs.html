@@ -1,0 +1,375 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>{-|
+<span class="lineno">    2 </span>Module      : Tarefa1
+<span class="lineno">    3 </span>Description : Invariantes do Jogo
+<span class="lineno">    4 </span>Copyright   : Gonçalo José Arantes Fernandes &lt;a111855@alunos.uminho.pt&gt;
+<span class="lineno">    5 </span>              Felipe Youssef Braga da Silva &lt;a109385@alunos.uminho.pt&gt;
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>
+<span class="lineno">    8 </span>Módulo para a realização da Tarefa 1 de LI1 em 2024/25.
+<span class="lineno">    9 </span>-}
+<span class="lineno">   10 </span>module Tarefa1 where
+<span class="lineno">   11 </span>
+<span class="lineno">   12 </span>import LI12425
+<span class="lineno">   13 </span>import Data.List
+<span class="lineno">   14 </span>
+<span class="lineno">   15 </span>mapa01 :: Mapa
+<span class="lineno">   16 </span><span class="decl"><span class="istickedoff">mapa01 = [ [t, t, r, <span class="nottickedoff">a</span>, <span class="nottickedoff">a</span>, <span class="nottickedoff">a</span>],</span>
+<span class="lineno">   17 </span><span class="spaces">           </span><span class="istickedoff">[r, t, r, <span class="nottickedoff">a</span>, <span class="nottickedoff">r</span>, <span class="nottickedoff">r</span>],</span>
+<span class="lineno">   18 </span><span class="spaces">           </span><span class="istickedoff">[r, t, r, a, <span class="nottickedoff">r</span>, <span class="nottickedoff">t</span>],</span>
+<span class="lineno">   19 </span><span class="spaces">           </span><span class="istickedoff">[r, t, r, <span class="nottickedoff">a</span>, <span class="nottickedoff">r</span>, <span class="nottickedoff">t</span>],</span>
+<span class="lineno">   20 </span><span class="spaces">           </span><span class="istickedoff">[r, t, t, t, t, t],</span>
+<span class="lineno">   21 </span><span class="spaces">           </span><span class="istickedoff"><span class="nottickedoff">[a, a, a, a, r, r]</span></span>
+<span class="lineno">   22 </span><span class="spaces">         </span><span class="istickedoff">]</span>
+<span class="lineno">   23 </span><span class="spaces">         </span><span class="istickedoff">where</span>
+<span class="lineno">   24 </span><span class="spaces">            </span><span class="istickedoff">t = Terra</span>
+<span class="lineno">   25 </span><span class="spaces">            </span><span class="istickedoff">r = Relva</span>
+<span class="lineno">   26 </span><span class="spaces">            </span><span class="istickedoff">a = Agua</span></span>
+<span class="lineno">   27 </span>
+<span class="lineno">   28 </span>jogoEx :: Jogo
+<span class="lineno">   29 </span><span class="decl"><span class="nottickedoff">jogoEx = Jogo baseEx portalEx torresEx mapa01 [inimigoEx] lojaEx</span></span>
+<span class="lineno">   30 </span>
+<span class="lineno">   31 </span>lojaEx :: Loja
+<span class="lineno">   32 </span><span class="decl"><span class="nottickedoff">lojaEx = [(100, Torre (0,2) 10 5 1 3 3 (Projetil Gelo (Finita 3)))]</span></span>
+<span class="lineno">   33 </span>
+<span class="lineno">   34 </span>inimigoEx :: Inimigo
+<span class="lineno">   35 </span><span class="decl"><span class="nottickedoff">inimigoEx = Inimigo (1,1) Sul 10 0.5 10 10 [Projetil Fogo (Finita 3)]</span></span>
+<span class="lineno">   36 </span>
+<span class="lineno">   37 </span>baseEx :: Base
+<span class="lineno">   38 </span><span class="decl"><span class="nottickedoff">baseEx = Base 100 (5,4) 0</span></span>
+<span class="lineno">   39 </span>
+<span class="lineno">   40 </span>torresEx :: [Torre]
+<span class="lineno">   41 </span><span class="decl"><span class="nottickedoff">torresEx = [ Torre (2,2) 10 5 1 3 3 (Projetil Fogo (Finita 3)) ]</span></span>
+<span class="lineno">   42 </span>
+<span class="lineno">   43 </span>
+<span class="lineno">   44 </span>portalEx :: [Portal]
+<span class="lineno">   45 </span><span class="decl"><span class="nottickedoff">portalEx = [ Portal (0,0) [Onda </span>
+<span class="lineno">   46 </span><span class="spaces">                            </span><span class="nottickedoff">[Inimigo (0,0) Sul 10 0.5 10 10 []] </span>
+<span class="lineno">   47 </span><span class="spaces">                                                                </span><span class="nottickedoff">3 0 0]]</span></span>
+<span class="lineno">   48 </span>
+<span class="lineno">   49 </span>
+<span class="lineno">   50 </span>
+<span class="lineno">   51 </span>
+<span class="lineno">   52 </span>
+<span class="lineno">   53 </span>{-|A função 'validaJogo' é responsável por fazer todas a verificações necessárias para que um jogo seja válido.
+<span class="lineno">   54 </span>
+<span class="lineno">   55 </span>-}
+<span class="lineno">   56 </span>validaJogo :: Jogo                           -- ^ recebe o jogo
+<span class="lineno">   57 </span>                 -&gt; Bool                     -- ^ devolve um Booleano
+<span class="lineno">   58 </span><span class="decl"><span class="istickedoff">validaJogo Jogo {baseJogo=baseJogo@Base {posicaoBase=posBase}, portaisJogo=portaisJogo, torresJogo=torresJogo, mapaJogo=mapaJogo, inimigosJogo=inimigosJogo} =  validaPortais portaisJogo mapaJogo posBase torresJogo                                   -- valida os Portais em jogo</span>
+<span class="lineno">   59 </span><span class="spaces">                                                                                                                                                             </span><span class="istickedoff">&amp;&amp; validaInimigosAll portaisJogo mapaJogo torresJogo inimigosJogo                          -- valida os inimigos que ainda não deram spawn</span>
+<span class="lineno">   60 </span><span class="spaces">                                                                                                                                                             </span><span class="istickedoff">&amp;&amp; all (\Inimigo {projeteisInimigo=projeteis} -&gt; projeteisNorm projeteis) inimigosJogo     -- valida os inimigos já spawnados</span>
+<span class="lineno">   61 </span><span class="spaces">                                                                                                                                                             </span><span class="istickedoff">&amp;&amp; validaTorres torresJogo mapaJogo                                                        -- valida as Torres em jogo</span>
+<span class="lineno">   62 </span><span class="spaces">                                                                                                                                                             </span><span class="istickedoff">&amp;&amp; validaBase baseJogo mapaJogo portaisJogo torresJogo</span></span>                                     -- valida a Base do Jogador
+<span class="lineno">   63 </span>
+<span class="lineno">   64 </span>-- Validação de Portáis:
+<span class="lineno">   65 </span>
+<span class="lineno">   66 </span>
+<span class="lineno">   67 </span>{-|A função 'validaPortais' é responsável por fazer todas a verificações, __relativas a portais__, necessárias
+<span class="lineno">   68 </span>para que um jogo seja válido. Esta função é utilizada pela função 'validaJogo'. 
+<span class="lineno">   69 </span>
+<span class="lineno">   70 </span>==__Exemplos de Aplicação:__
+<span class="lineno">   71 </span>&gt;&gt;&gt; validaPortais [] mapa01 (3,2)
+<span class="lineno">   72 </span>False
+<span class="lineno">   73 </span>
+<span class="lineno">   74 </span>&gt;&gt;&gt; validaPortais [(Portal (1,1) ondas)] mapa01 (3,4)
+<span class="lineno">   75 </span>True
+<span class="lineno">   76 </span>-}
+<span class="lineno">   77 </span>validaPortais :: [Portal]                    -- ^ recebe a lista de portais em jogo
+<span class="lineno">   78 </span>                    -&gt; Mapa                  -- ^ recebe o mapa do jogo
+<span class="lineno">   79 </span>                        -&gt; Posicao           -- ^ recebe a posição da base
+<span class="lineno">   80 </span>                            -&gt; [Torre]       -- ^ recebe a lista de torres em jogo                                          //todo: não devia verificar se portal sobrepoe portal?
+<span class="lineno">   81 </span>                                    -&gt; Bool  -- ^ devolve um Bool
+<span class="lineno">   82 </span><span class="decl"><span class="istickedoff">validaPortais [] _ _ _ = <span class="nottickedoff">False</span>                                                                                    -- | verifica se existe pelo menos um portal</span>
+<span class="lineno">   83 </span><span class="spaces"></span><span class="istickedoff">validaPortais portais mapa base torres =  portaisTerra posPortais mapa                                            -- | verifica se os portais estão sobre terra</span>
+<span class="lineno">   84 </span><span class="spaces">                                       </span><span class="istickedoff">&amp;&amp; emTerra base mapa                                                       -- | verifica se a base está sobre terra</span>
+<span class="lineno">   85 </span><span class="spaces">                                       </span><span class="istickedoff">&amp;&amp; all (\(x,y) -&gt; checkCaminho mapa (x,y) base []) posPortais              -- | verifica se existe um caminho em terra que ligue o portal e a base</span>
+<span class="lineno">   86 </span><span class="spaces">                                       </span><span class="istickedoff">&amp;&amp; not (all (\(x,y) -&gt; portalSobrepoe (x,<span class="nottickedoff">y</span>) base posTorres) posPortais)    -- | verifica se nenhum dos portais sobrepoe a base ou uma Torre</span>
+<span class="lineno">   87 </span><span class="spaces">                                       </span><span class="istickedoff">&amp;&amp; all umaOndaAtiva portais                                                -- | verifica se cada portal tem apenas uma onda ativa</span>
+<span class="lineno">   88 </span><span class="spaces">    </span><span class="istickedoff">where posPortais = map posicaoPortal portais                                                          -- | extrai todas as posições dos Portais para uma lista</span>
+<span class="lineno">   89 </span><span class="spaces">          </span><span class="istickedoff">posTorres  = map posicaoTorre torres</span></span>
+<span class="lineno">   90 </span>
+<span class="lineno">   91 </span>
+<span class="lineno">   92 </span>{-|A função 'portaisTerra' é responável por verificar se todos os portais de uma lista de portais estão sobre o terreno de Terra.
+<span class="lineno">   93 </span>Utiliza a função 'emTerra'.
+<span class="lineno">   94 </span>
+<span class="lineno">   95 </span>==__Exemplos de Aplicação:__
+<span class="lineno">   96 </span>&gt;&gt;&gt;portaisTerra [(Portal (1,1) ondas)] mapa01
+<span class="lineno">   97 </span>True
+<span class="lineno">   98 </span>-}
+<span class="lineno">   99 </span>portaisTerra :: [Posicao]                    -- ^ recebe a lista de portais em jogo
+<span class="lineno">  100 </span>                    -&gt; Mapa                  -- ^ recebe o mapa do jogo
+<span class="lineno">  101 </span>                        -&gt; Bool              -- ^ devolve um Booleano
+<span class="lineno">  102 </span><span class="decl"><span class="istickedoff">portaisTerra portais mapa = all (\(x,y) -&gt; emTerra (x,y) mapa ) portais</span></span>
+<span class="lineno">  103 </span>
+<span class="lineno">  104 </span>
+<span class="lineno">  105 </span>{-|A função 'emTerra' é responável por verificar se um dado bloco de coordenada (x,y) é um terreno de Terra.
+<span class="lineno">  106 </span>
+<span class="lineno">  107 </span>==__Exemplos de Aplicação:__
+<span class="lineno">  108 </span>&gt;&gt;&gt;emTerra (1,1) mapa01
+<span class="lineno">  109 </span>True
+<span class="lineno">  110 </span>-}
+<span class="lineno">  111 </span>emTerra :: Posicao                           -- ^ recebe a posição de um determinado bloco
+<span class="lineno">  112 </span>             -&gt; Mapa                         -- ^ recebe o mapa do jogo
+<span class="lineno">  113 </span>                -&gt; Bool                      -- ^ devolve um Booleano
+<span class="lineno">  114 </span><span class="decl"><span class="istickedoff">emTerra (x,y) mapa = (mapa !! floor y) !! floor x == Terra</span></span>
+<span class="lineno">  115 </span>
+<span class="lineno">  116 </span>
+<span class="lineno">  117 </span>{-|A função 'dentroMapa' é responsável por verificar se uma bloco de coordenada (x,y) pertence ou não ao mapa de jogo
+<span class="lineno">  118 </span>
+<span class="lineno">  119 </span>==__Exemplos de aplicação:__
+<span class="lineno">  120 </span>&gt;&gt;&gt; dentroMapa (0,0) mapa01
+<span class="lineno">  121 </span>True
+<span class="lineno">  122 </span>
+<span class="lineno">  123 </span>&gt;&gt;&gt; dentroMapa (-2,-1) mapa01
+<span class="lineno">  124 </span>False
+<span class="lineno">  125 </span>-}
+<span class="lineno">  126 </span>dentroMapa :: Mapa                           -- ^ recebe o mapa do jogo
+<span class="lineno">  127 </span>            -&gt; Posicao                       -- ^ recebe a posição de um determinado bloco
+<span class="lineno">  128 </span>                -&gt; Bool                      -- ^ devolve um Booleano
+<span class="lineno">  129 </span><span class="decl"><span class="istickedoff">dentroMapa mapa (x,y) = (x &gt;= 0 &amp;&amp; x &lt;= fromIntegral (length (head mapa))) &amp;&amp; (y &gt;= 0 &amp;&amp; y &lt;= fromIntegral (length mapa))</span></span>
+<span class="lineno">  130 </span>
+<span class="lineno">  131 </span>
+<span class="lineno">  132 </span>{-|A função 'checkCaminho' é responsável por verificar para um dado mapa com um portal e uma base, se existe um caminho em terra que ligue o portal e a base.
+<span class="lineno">  133 </span>No caso 
+<span class="lineno">  134 </span>
+<span class="lineno">  135 </span>==__Exemplos de Aplicação:__
+<span class="lineno">  136 </span>&gt;&gt;&gt;checkCaminho mapa01 (0,0) (4,4) []
+<span class="lineno">  137 </span>True
+<span class="lineno">  138 </span>
+<span class="lineno">  139 </span>&gt;&gt;&gt;checkCaminho mapa01 (0,0) (4,5) []
+<span class="lineno">  140 </span>False
+<span class="lineno">  141 </span>-}
+<span class="lineno">  142 </span>checkCaminho :: Mapa                         -- ^ recebe o mapa do jogo
+<span class="lineno">  143 </span>                -&gt; Posicao                   -- ^ recebe a posição de um Portal
+<span class="lineno">  144 </span>                    -&gt; Posicao               -- ^ recebe a posição da base
+<span class="lineno">  145 </span>                        -&gt; [Posicao]         -- ^ recebe um acomulador inicialmente vazio que acomula os blocos já visitados
+<span class="lineno">  146 </span>                                -&gt; Bool      -- ^ devolve um Booleano
+<span class="lineno">  147 </span><span class="decl"><span class="istickedoff">checkCaminho mapa portal base ac</span>
+<span class="lineno">  148 </span><span class="spaces">    </span><span class="istickedoff">| portal == base &amp;&amp; not (null ac) = True              -- verifica se a posição a ser verificada é a posição da base, verificando se não é a primeira verificação, isto é, se o portal não está em cima da base</span>
+<span class="lineno">  149 </span><span class="spaces">    </span><span class="istickedoff">| <span class="tickonlytrue">otherwise</span> = any (\terreno -&gt; checkCaminho mapa terreno base (portal: ac)) terrenoValido</span>
+<span class="lineno">  150 </span><span class="spaces">    </span><span class="istickedoff">where</span>
+<span class="lineno">  151 </span><span class="spaces">        </span><span class="istickedoff">(x, y) = portal</span>
+<span class="lineno">  152 </span><span class="spaces">        </span><span class="istickedoff">redor = [(x+rx, y+ry) | (rx, ry) &lt;- [(-1,0), (1,0), (0,1), <span class="nottickedoff">(0,-1)</span>]]</span>
+<span class="lineno">  153 </span><span class="spaces">        </span><span class="istickedoff">terrenoValido = filter (\pos -&gt; dentroMapa mapa pos &amp;&amp; emTerra pos mapa &amp;&amp; notElem pos ac) redor</span></span>
+<span class="lineno">  154 </span>
+<span class="lineno">  155 </span>
+<span class="lineno">  156 </span>
+<span class="lineno">  157 </span>{-|A função 'portalSobrepoe' é responsável por verificar se um Portal sobrepõe a Base ou alguma torre
+<span class="lineno">  158 </span>
+<span class="lineno">  159 </span>==__Exemplos de Aplicação:__
+<span class="lineno">  160 </span>
+<span class="lineno">  161 </span>-}
+<span class="lineno">  162 </span>portalSobrepoe :: Posicao                    -- ^ recebe a base do jogo
+<span class="lineno">  163 </span>                        -&gt; Posicao           -- ^ recebe os portais do jogo
+<span class="lineno">  164 </span>                            -&gt; [Posicao]     -- ^ recebe as torres do jogo
+<span class="lineno">  165 </span>                                    -&gt; Bool  -- ^ devolve um Booleano
+<span class="lineno">  166 </span><span class="decl"><span class="istickedoff">portalSobrepoe (x,y) (bx,by) torres = (x,<span class="nottickedoff">y</span>) `elem` torres || (x,<span class="nottickedoff">y</span>) == (bx,<span class="nottickedoff">by</span>)</span></span>
+<span class="lineno">  167 </span>
+<span class="lineno">  168 </span>{-|A função 'umaOndaAtiva' é responsável por verificar se um dado portal tem uma e apenas uma onda átiva.
+<span class="lineno">  169 </span>
+<span class="lineno">  170 </span>==__Exemplos de aplicação:__
+<span class="lineno">  171 </span>&gt;&gt;&gt;umaOndaAtiva (Portal (0,0) [(Onda [] 3 0 0)])
+<span class="lineno">  172 </span>False
+<span class="lineno">  173 </span>
+<span class="lineno">  174 </span>-}
+<span class="lineno">  175 </span>umaOndaAtiva :: Portal                       -- ^ recebe um Portal do jogo
+<span class="lineno">  176 </span>                    -&gt; Bool                  -- ^ devolve um Booleano
+<span class="lineno">  177 </span><span class="decl"><span class="istickedoff">umaOndaAtiva Portal {ondasPortal=ondas} = length ondasAtivas &lt;= 1</span>
+<span class="lineno">  178 </span><span class="spaces">    </span><span class="istickedoff">where ondasAtivas = filter (\Onda {entradaOnda=entrada, inimigosOnda=inimigos} -&gt; entrada == 0 &amp;&amp; not (null inimigos)) ondas</span></span>
+<span class="lineno">  179 </span>
+<span class="lineno">  180 </span>
+<span class="lineno">  181 </span>
+<span class="lineno">  182 </span>
+<span class="lineno">  183 </span>-- Validação de Inimigos:
+<span class="lineno">  184 </span>
+<span class="lineno">  185 </span>
+<span class="lineno">  186 </span>{-|A função 'validaInimigosAll' faz a validação dos inimigos de vários portais através da função 'validaInimigos'
+<span class="lineno">  187 </span>
+<span class="lineno">  188 </span>==__Exemplos de Aplicação:__
+<span class="lineno">  189 </span>-}
+<span class="lineno">  190 </span>validaInimigosAll :: [Portal]                   -- | recebe os portais em jogo
+<span class="lineno">  191 </span>                         -&gt; Mapa                -- | recebe o mapa do jogo
+<span class="lineno">  192 </span>                            -&gt; [Torre]          -- | recebe as torres em jogo
+<span class="lineno">  193 </span>                                -&gt; [Inimigo]
+<span class="lineno">  194 </span>                                        -&gt; Bool -- | devolve um Booleano
+<span class="lineno">  195 </span><span class="decl"><span class="istickedoff">validaInimigosAll portais mapa torres inEmJogo = all (\portal -&gt; validaInimigos portal mapa torres inEmJogo) portais</span></span>
+<span class="lineno">  196 </span>
+<span class="lineno">  197 </span>
+<span class="lineno">  198 </span>{-|A função 'validaInimigos' é responsável por fazer todas a verificações, __relativas a portais__, necessárias
+<span class="lineno">  199 </span>para que um jogo seja válido. Esta função é utilizada pela função 'validaJogo'.
+<span class="lineno">  200 </span>
+<span class="lineno">  201 </span>==__Exemplos de Aplicação:__
+<span class="lineno">  202 </span>
+<span class="lineno">  203 </span>-}
+<span class="lineno">  204 </span>validaInimigos :: Portal                        -- | recebe um portal em jogo
+<span class="lineno">  205 </span>                    -&gt; Mapa                     -- | recebe o mapa do jogo
+<span class="lineno">  206 </span>                        -&gt; [Torre]              -- | recebe as torres em jogo
+<span class="lineno">  207 </span>                            -&gt; [Inimigo]        -- | recebe os inimigos spawnados
+<span class="lineno">  208 </span>                                    -&gt;  Bool    -- | devolve um Booleano
+<span class="lineno">  209 </span><span class="decl"><span class="istickedoff">validaInimigos Portal {posicaoPortal=posPortal ,ondasPortal=ondas} mapa torres inEmJogo =  inimigoNoPortal posPortal posInOndas                           -- verifica se os inimigos têm a posição do respetivo portal </span>
+<span class="lineno">  210 </span><span class="spaces">                                                                                        </span><span class="istickedoff">&amp;&amp; all inimigoStatsOk inOndas &amp;&amp; checkVel inAll                   -- verifica se as Stats dos inimigos não ativos são válidas, e se a velocidade de todos os inimigos é não negativa</span>
+<span class="lineno">  211 </span><span class="spaces">                                                                                        </span><span class="istickedoff">&amp;&amp; all (\(x,y) -&gt; emTerra (x,y) mapa) posAll                      -- verifica se todos os inimigos estão posicionados sobre Terra</span>
+<span class="lineno">  212 </span><span class="spaces">                                                                                        </span><span class="istickedoff">&amp;&amp; not (all (\(x,y) -&gt; inimigoSobrepoe (x,<span class="nottickedoff">y</span>) torres) posAll)      -- verifica se os inimigos sobrepoeem alguma torre</span>
+<span class="lineno">  213 </span><span class="spaces">    </span><span class="istickedoff">where inOndas = map inimigosOnda ondas                                  -- extrai para uma lista os inimigos de todas as ondas (inimigos não ativos)</span>
+<span class="lineno">  214 </span><span class="spaces">          </span><span class="istickedoff">posInOndas  =  map posicaoInimigo (concat inOndas)                -- extrai para uma lista as posições dos inimigos das ondas (inimigos não ativos)</span>
+<span class="lineno">  215 </span><span class="spaces">          </span><span class="istickedoff">posInJogo = map posicaoInimigo inEmJogo                           -- extrai para uma lista as posições dos inimigos em jogo (ativos)</span>
+<span class="lineno">  216 </span><span class="spaces">          </span><span class="istickedoff">posAll = posInOndas ++ posInJogo                                  -- soma numa lista as posições de todos os inimigos</span>
+<span class="lineno">  217 </span><span class="spaces">          </span><span class="istickedoff">inAll = concat inOndas ++ inEmJogo</span></span>                                -- soma numa lista todos os inimigos 
+<span class="lineno">  218 </span>
+<span class="lineno">  219 </span>{-|A função 'inimigoNoPortal' é responsável por verificar se um inimigo tem a posição do respetivo portal.
+<span class="lineno">  220 </span>
+<span class="lineno">  221 </span>==__Exemplo de Aplicação:__
+<span class="lineno">  222 </span>
+<span class="lineno">  223 </span>-}
+<span class="lineno">  224 </span>inimigoNoPortal :: Posicao                  -- | recebe a posição de um portal
+<span class="lineno">  225 </span>                 -&gt; [Posicao]               -- | recebe as posições dos respetivos inimigos
+<span class="lineno">  226 </span>                        -&gt; Bool             -- | devolve um Booleano
+<span class="lineno">  227 </span><span class="decl"><span class="istickedoff">inimigoNoPortal (x,y) = all (\(ix,iy) -&gt; (x,y) == (ix,iy))</span></span>
+<span class="lineno">  228 </span>
+<span class="lineno">  229 </span>
+<span class="lineno">  230 </span>{-|A função 'inimigoStatsOk' é responsável por verificar se as stats dos inimigos são válidas. 
+<span class="lineno">  231 </span>Isto inclui: o nível de vida é positivo; a lista de projeteis ativos é vazia; a velocidade não é negativa.
+<span class="lineno">  232 </span>
+<span class="lineno">  233 </span>==__Exemplos de Aplicação:__
+<span class="lineno">  234 </span>
+<span class="lineno">  235 </span>-}
+<span class="lineno">  236 </span>inimigoStatsOk :: [Inimigo]                 -- | recebe os inimigos que ainda não spawnaram
+<span class="lineno">  237 </span>                        -&gt; Bool             -- | devolve um Booleano
+<span class="lineno">  238 </span><span class="decl"><span class="istickedoff">inimigoStatsOk = all (\Inimigo {vidaInimigo=vida, projeteisInimigo=projeteis} -&gt; vida &gt; 0 &amp;&amp; null projeteis)</span></span>
+<span class="lineno">  239 </span>
+<span class="lineno">  240 </span>{-|A função 'checkVel' é responsável por verificar se a velocidade de todos os inimigos é não negativa.
+<span class="lineno">  241 </span>É utilizada pela função 'validaInimigos'.
+<span class="lineno">  242 </span>-}
+<span class="lineno">  243 </span>checkVel :: [Inimigo]                       -- | recebe a lista de todos os inimigos do jogo
+<span class="lineno">  244 </span>                -&gt; Bool                     -- | devolve um Booleano
+<span class="lineno">  245 </span><span class="decl"><span class="istickedoff">checkVel = all (\Inimigo {velocidadeInimigo=velocidade} -&gt; velocidade &gt; 0)</span></span> 
+<span class="lineno">  246 </span>
+<span class="lineno">  247 </span>{-|A função 'projeteisNorm' é responsável por verificar se a lista de projeteis de um inimigo já em jogo, está normalizada.
+<span class="lineno">  248 </span>A função 'checkSinergias' é integrada como auxiliar
+<span class="lineno">  249 </span>
+<span class="lineno">  250 </span>==__Exemplos de aplicação:__
+<span class="lineno">  251 </span>
+<span class="lineno">  252 </span>-}
+<span class="lineno">  253 </span>projeteisNorm :: [Projetil]                 -- | recebe a lista de projeteis de um inimigo já em jogo
+<span class="lineno">  254 </span>                        -&gt; Bool             -- | devolve um Booleano
+<span class="lineno">  255 </span><span class="decl"><span class="istickedoff">projeteisNorm projeteis =  length projeteis == length (nubBy <span class="nottickedoff">(\pr1 pr2 -&gt; tipoProjetil pr1 == tipoProjetil pr2)</span> projeteis)</span>
+<span class="lineno">  256 </span><span class="spaces">                        </span><span class="istickedoff">&amp;&amp; checkSinergias projeteis</span></span>
+<span class="lineno">  257 </span>
+<span class="lineno">  258 </span>{-|A função 'checkSinergias' é responsável por verificar as condições de compatibilidade do jogo.
+<span class="lineno">  259 </span>Nomeadamente, verifica se existem, simultaneamente, projéteis do tipo Fogo e Resina, ou do Tipo Fogo e Gelo.
+<span class="lineno">  260 </span>
+<span class="lineno">  261 </span>==__Exemplos de Aplicação:__
+<span class="lineno">  262 </span>
+<span class="lineno">  263 </span>-}
+<span class="lineno">  264 </span>checkSinergias :: [Projetil]                -- | recebe a lista de projeteis de um inimigo já em jogo
+<span class="lineno">  265 </span>                        -&gt; Bool             -- | devolve um Booleano
+<span class="lineno">  266 </span><span class="decl"><span class="istickedoff">checkSinergias projeteis</span>
+<span class="lineno">  267 </span><span class="spaces">    </span><span class="istickedoff">| Fogo `elem` tiposProjeteis = not (Resina `elem` tiposProjeteis || Gelo `elem` tiposProjeteis)</span>
+<span class="lineno">  268 </span><span class="spaces">    </span><span class="istickedoff">| <span class="tickonlytrue">otherwise</span> = True</span>
+<span class="lineno">  269 </span><span class="spaces">    </span><span class="istickedoff">where tiposProjeteis = map tipoProjetil projeteis</span></span>
+<span class="lineno">  270 </span>
+<span class="lineno">  271 </span>
+<span class="lineno">  272 </span>{-|A função 'inimigoSobrepoe' é responsável por verificar se um inimigo sobrepõe alguma Torre
+<span class="lineno">  273 </span>
+<span class="lineno">  274 </span>==__Exemplos de Aplicação:__
+<span class="lineno">  275 </span>-}
+<span class="lineno">  276 </span>inimigoSobrepoe :: Posicao                   -- |recebe a posição de um inimigo
+<span class="lineno">  277 </span>                    -&gt; [Torre]               -- |recebe as torres do jogo
+<span class="lineno">  278 </span>                        -&gt; Bool              -- |devolve um Booleano
+<span class="lineno">  279 </span><span class="decl"><span class="istickedoff">inimigoSobrepoe (x,y) torres = (x,<span class="nottickedoff">y</span>) `elem` posTorres</span>
+<span class="lineno">  280 </span><span class="spaces">    </span><span class="istickedoff">where posTorres  = map posicaoTorre torres</span></span>
+<span class="lineno">  281 </span>
+<span class="lineno">  282 </span>
+<span class="lineno">  283 </span>
+<span class="lineno">  284 </span>
+<span class="lineno">  285 </span>
+<span class="lineno">  286 </span>-- Validação de Torres:
+<span class="lineno">  287 </span>
+<span class="lineno">  288 </span>
+<span class="lineno">  289 </span>{-|A função 'validaTorres' é responsável por  por fazer todas a verificações, __relativas às Torres__, necessárias
+<span class="lineno">  290 </span>para que um jogo seja válido. Esta função é utilizada pela função 'validaJogo'.
+<span class="lineno">  291 </span>
+<span class="lineno">  292 </span>==__Exemplos de Aplicação:__
+<span class="lineno">  293 </span>
+<span class="lineno">  294 </span>-}
+<span class="lineno">  295 </span>validaTorres :: [Torre]                      -- |recebe a lista de Torres em jogo
+<span class="lineno">  296 </span>                    -&gt; Mapa                  -- |recebe o mapa do jogo
+<span class="lineno">  297 </span>                        -&gt; Bool              -- |devolve um Booleano
+<span class="lineno">  298 </span><span class="decl"><span class="istickedoff">validaTorres torres mapa =  all (\(x,y) -&gt; emRelva (x,y) mapa) posTorres                -- | verifica se a torra está posicionada sobre relva</span>
+<span class="lineno">  299 </span><span class="spaces">                         </span><span class="istickedoff">&amp;&amp; all (\Torre {alcanceTorre=alcance} -&gt; alcance &gt;0) torres    -- | verifica se o alcance é um valor positivo</span>
+<span class="lineno">  300 </span><span class="spaces">                         </span><span class="istickedoff">&amp;&amp; all (\Torre {rajadaTorre=rajada} -&gt; rajada &gt; 0) torres      -- | verifica se a rajada é um valor positivo</span>
+<span class="lineno">  301 </span><span class="spaces">                         </span><span class="istickedoff">&amp;&amp; all (\Torre {cicloTorre=ciclo} -&gt; ciclo &gt;= 0) torres        -- | verifica se o ciclo é um valor não negativo</span>
+<span class="lineno">  302 </span><span class="spaces">                         </span><span class="istickedoff">&amp;&amp; length posTorres == length nubPosT                          -- | verifica se não há torres sobrepostas</span>
+<span class="lineno">  303 </span><span class="spaces"></span><span class="istickedoff"></span>
+<span class="lineno">  304 </span><span class="spaces">    </span><span class="istickedoff">where posTorres = map posicaoTorre torres           -- extrai as posições de todas as Torres para um Lista</span>
+<span class="lineno">  305 </span><span class="spaces">          </span><span class="istickedoff">nubPosT   = nub posTorres</span></span>                     -- elimina elementos duplicados da lista de posições das torres
+<span class="lineno">  306 </span>
+<span class="lineno">  307 </span>
+<span class="lineno">  308 </span>{-|A função 'emRelva' é responável por verificar se um dado bloco de coordenada (x,y) é um terreno de Relva.
+<span class="lineno">  309 </span>
+<span class="lineno">  310 </span>==__Exemplos de Aplicação:__
+<span class="lineno">  311 </span>&gt;&gt;&gt;emRelva (2,0) mapa01
+<span class="lineno">  312 </span>True
+<span class="lineno">  313 </span>-}
+<span class="lineno">  314 </span>emRelva :: Posicao                           -- | recebe a posição de um determinado bloco
+<span class="lineno">  315 </span>             -&gt; Mapa                         -- | recebe o mapa do jogo
+<span class="lineno">  316 </span>                -&gt; Bool                      -- | devolve um Booleano
+<span class="lineno">  317 </span><span class="decl"><span class="istickedoff">emRelva (x,y) mapa = (mapa !! floor y) !! floor x == Relva</span></span>
+<span class="lineno">  318 </span>
+<span class="lineno">  319 </span>
+<span class="lineno">  320 </span>
+<span class="lineno">  321 </span>
+<span class="lineno">  322 </span>-- Validação da Base:
+<span class="lineno">  323 </span>
+<span class="lineno">  324 </span>{-|A função 'validaBase' é responsável por fazer todas a verificações, __relativas à base__, necessárias
+<span class="lineno">  325 </span>para que um jogo seja válido. Esta função é utilizada pela função 'validaJogo'.
+<span class="lineno">  326 </span>
+<span class="lineno">  327 </span>==__Exemplos de Aplicação:__
+<span class="lineno">  328 </span>
+<span class="lineno">  329 </span>-}
+<span class="lineno">  330 </span>validaBase :: Base                           -- |recebe a base do jogo
+<span class="lineno">  331 </span>                -&gt; Mapa                      -- |recebe o mapa do jogo
+<span class="lineno">  332 </span>                    -&gt; [Portal]              -- |recebe os portais do jogo
+<span class="lineno">  333 </span>                        -&gt; [Torre]           -- |recebe as torres do jogo
+<span class="lineno">  334 </span>                                -&gt; Bool      -- |devolve um Booleano
+<span class="lineno">  335 </span><span class="decl"><span class="istickedoff">validaBase base@Base {posicaoBase=(x,y), creditosBase=creditos} mapa portais torres =  emTerra (x,y) mapa                       -- |verifica se a base está sobre Terra</span>
+<span class="lineno">  336 </span><span class="spaces">                                                                                    </span><span class="istickedoff">&amp;&amp; creditos &gt;= 0                            -- |verifica se os créditos não são negativos</span>
+<span class="lineno">  337 </span><span class="spaces">                                                                                    </span><span class="istickedoff">&amp;&amp; not (baseSobrepoe base portais torres)</span></span>   -- |verifica se a base não sobrepoe Portais ou Torres
+<span class="lineno">  338 </span>
+<span class="lineno">  339 </span>
+<span class="lineno">  340 </span>{-|A função 'baseSobrepoe' é responsável por verificar se a Base sobrepõe algum portal ou alguma torre
+<span class="lineno">  341 </span>
+<span class="lineno">  342 </span>==__Exemplos de Aplicação:__
+<span class="lineno">  343 </span>-}
+<span class="lineno">  344 </span>baseSobrepoe :: Base                         -- |recebe a base do jogo
+<span class="lineno">  345 </span>            -&gt; [Portal]                      -- |recebe os portais do jogo
+<span class="lineno">  346 </span>                -&gt; [Torre]                   -- |recebe as torres do jogo
+<span class="lineno">  347 </span>                        -&gt; Bool              -- |devolve um Booleano
+<span class="lineno">  348 </span><span class="decl"><span class="istickedoff">baseSobrepoe Base {posicaoBase=(x,y)} portais torres = (x,<span class="nottickedoff">y</span>) `elem` posPortais || (x,<span class="nottickedoff">y</span>) `elem` posTorres</span>
+<span class="lineno">  349 </span><span class="spaces">    </span><span class="istickedoff">where posPortais = map posicaoPortal portais</span>
+<span class="lineno">  350 </span><span class="spaces">          </span><span class="istickedoff">posTorres  = map posicaoTorre torres</span></span>
+<span class="lineno">  351 </span>
+<span class="lineno">  352 </span>
+
+</pre>
+</body>
+</html>

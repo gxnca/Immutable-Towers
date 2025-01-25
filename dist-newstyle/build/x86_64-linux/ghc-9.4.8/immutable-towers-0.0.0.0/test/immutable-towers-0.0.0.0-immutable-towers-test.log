@@ -1,0 +1,21 @@
+Test suite immutable-towers-test: RUNNING...
+Cases: 21  Tried: 0  Errors: 0  Failures: 0Cases: 21  Tried: 1  Errors: 0  Failures: 0Cases: 21  Tried: 2  Errors: 0  Failures: 0Cases: 21  Tried: 3  Errors: 0  Failures: 0Cases: 21  Tried: 4  Errors: 0  Failures: 0Cases: 21  Tried: 5  Errors: 0  Failures: 0Cases: 21  Tried: 6  Errors: 0  Failures: 0Cases: 21  Tried: 7  Errors: 0  Failures: 0Cases: 21  Tried: 8  Errors: 0  Failures: 0Cases: 21  Tried: 9  Errors: 0  Failures: 0Cases: 21  Tried: 10  Errors: 0  Failures: 0Cases: 21  Tried: 11  Errors: 0  Failures: 0Cases: 21  Tried: 12  Errors: 0  Failures: 0                                            ### Failure in: 2:Testes Tarefa 2:2:jogo ganho, vidabase > 0 e sem inimigos ativos(ganhoujogo)
+test/Tarefa2Spec.hs:70
+expected: True
+ but got: False
+Cases: 21  Tried: 13  Errors: 0  Failures: 1Cases: 21  Tried: 14  Errors: 0  Failures: 1Cases: 21  Tried: 15  Errors: 0  Failures: 1                                            ### Failure in: 2:Testes Tarefa 2:5:Jogo terminou, logo voce ganhou o jogo(terminouJogo)
+test/Tarefa2Spec.hs:79
+expected: True
+ but got: False
+Cases: 21  Tried: 16  Errors: 0  Failures: 2Cases: 21  Tried: 17  Errors: 0  Failures: 2Cases: 21  Tried: 18  Errors: 0  Failures: 2                                            ### Error in:   2:Testes Tarefa 2:8:O inimigo foi ativado(ativaInimigo)
+test/Tarefa2Spec.hs:55:147-198: Missing field in record construction direcaoInimigo
+
+Cases: 21  Tried: 19  Errors: 1  Failures: 2                                            ### Error in:   2:Testes Tarefa 2:9:Inimigo atingido(atingeInimigo)
+test/Tarefa2Spec.hs:46:18-93: Missing field in record construction direcaoInimigo
+
+Cases: 21  Tried: 20  Errors: 2  Failures: 2                                            ### Error in:   2:Testes Tarefa 2:10:"O inimigo est\225 no alcance(inimigosNoAlcance)"
+test/Tarefa2Spec.hs:95:80-111: Missing field in record construction direcaoInimigo
+
+Cases: 21  Tried: 21  Errors: 3  Failures: 2
+Test suite immutable-towers-test: FAIL
+Test suite logged to: /home/gxnca/Documents/Tower_Defense/2024li1g059/dist-newstyle/build/x86_64-linux/ghc-9.4.8/immutable-towers-0.0.0.0/test/immutable-towers-0.0.0.0-immutable-towers-test.log

@@ -1,0 +1,18 @@
+Test suite immutable-towers-test: RUNNING...
+Cases: 24  Tried: 0  Errors: 0  Failures: 0Cases: 24  Tried: 1  Errors: 0  Failures: 0Cases: 24  Tried: 2  Errors: 0  Failures: 0Cases: 24  Tried: 3  Errors: 0  Failures: 0Cases: 24  Tried: 4  Errors: 0  Failures: 0Cases: 24  Tried: 5  Errors: 0  Failures: 0Cases: 24  Tried: 6  Errors: 0  Failures: 0Cases: 24  Tried: 7  Errors: 0  Failures: 0Cases: 24  Tried: 8  Errors: 0  Failures: 0Cases: 24  Tried: 9  Errors: 0  Failures: 0Cases: 24  Tried: 10  Errors: 0  Failures: 0Cases: 24  Tried: 11  Errors: 0  Failures: 0Cases: 24  Tried: 12  Errors: 0  Failures: 0Cases: 24  Tried: 13  Errors: 0  Failures: 0Cases: 24  Tried: 14  Errors: 0  Failures: 0Cases: 24  Tried: 15  Errors: 0  Failures: 0Cases: 24  Tried: 16  Errors: 0  Failures: 0Cases: 24  Tried: 17  Errors: 0  Failures: 0Cases: 24  Tried: 18  Errors: 0  Failures: 0Cases: 24  Tried: 19  Errors: 0  Failures: 0Cases: 24  Tried: 20  Errors: 0  Failures: 0Cases: 24  Tried: 21  Errors: 0  Failures: 0Processando inimigos. Total: 1
+Torre cooldown:3.0
+Inimigo na pos (1.0,1.0) tem projeteis: [Projetil {tipoProjetil = Fogo, duracaoProjetil = Finita 3.0}]
+Processando inimigo. Vida: 9.0 Posicao: (1.0,1.5)
+Cases: 24  Tried: 22  Errors: 0  Failures: 0Processando inimigos. Total: 1
+Torre cooldown:3.0
+Inimigo na pos (2.0,1.0) tem projeteis: [Projetil {tipoProjetil = Fogo, duracaoProjetil = Finita 4.0}]
+Processando inimigo. Vida: 7.0 Posicao: (1.6,1.0)
+Cases: 24  Tried: 23  Errors: 0  Failures: 0Processando inimigos. Total: 2
+Torre cooldown:3.0
+Inimigo na pos (0.0,0.0) tem projeteis: []
+Processando inimigo. Vida: 10.0 Posicao: (0.5,0.0)
+Inimigo na pos (3.0,2.0) tem projeteis: [Projetil {tipoProjetil = Gelo, duracaoProjetil = Finita 5.0}]
+Processando inimigo. Vida: 9.0 Posicao: (3.0,2.0)
+                                            Cases: 24  Tried: 24  Errors: 0  Failures: 0
+Test suite immutable-towers-test: PASS
+Test suite logged to: /home/gxnca/Documents/Tower_Defense/2024li1g059/dist-newstyle/build/x86_64-linux/ghc-9.4.8/immutable-towers-0.0.0.0/t/immutable-towers-test/test/immutable-towers-0.0.0.0-immutable-towers-test.log

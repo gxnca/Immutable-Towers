@@ -1,0 +1,295 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+span.lineno { color: white; background: #aaaaaa; border-right: solid white 12px }
+span.nottickedoff { background: yellow}
+span.istickedoff { background: white }
+span.tickonlyfalse { margin: -1px; border: 1px solid #f20913; background: #f20913 }
+span.tickonlytrue  { margin: -1px; border: 1px solid #60de51; background: #60de51 }
+span.funcount { font-size: small; color: orange; z-index: 2; position: absolute; right: 20 }
+span.decl { font-weight: bold }
+span.spaces    { background: white }
+</style>
+</head>
+<body>
+<pre>
+<span class="decl"><span class="nottickedoff">never executed</span> <span class="tickonlytrue">always true</span> <span class="tickonlyfalse">always false</span></span>
+</pre>
+<pre>
+<span class="lineno">    1 </span>{-|
+<span class="lineno">    2 </span>Module      : Tarefa2
+<span class="lineno">    3 </span>Description : Auxiliares do Jogo
+<span class="lineno">    4 </span>Copyright   : (c) Gonçalo José Arantes Fernandes &lt;a111855@alunos.uminho.pt&gt; | Felipe Youssef Braga da Silva &lt;a109385@alunos.uminho.pt&gt;
+<span class="lineno">    5 </span>Maintainer  : a109385@alunos.uminho.pt
+<span class="lineno">    6 </span>
+<span class="lineno">    7 </span>Módulo para a realização da Tarefa 2 de LI1 em 2024/25.
+<span class="lineno">    8 </span>-}
+<span class="lineno">    9 </span>module Tarefa2 where
+<span class="lineno">   10 </span>
+<span class="lineno">   11 </span>import LI12425
+<span class="lineno">   12 </span>
+<span class="lineno">   13 </span>{-| A funcao 'inimigosNoAlcance' tem como objetivo relacionar a posicao da torre e o seu alcance para definir
+<span class="lineno">   14 </span>se um inimigo qualquer está no alcance dessa torre.
+<span class="lineno">   15 </span>
+<span class="lineno">   16 </span>== __Exemplos de Aplicação:__
+<span class="lineno">   17 </span>&gt;&gt;&gt; inimigosNoAlcance (Torre {posicaoTorre=(2,4), alcanceTorre= 10.2}) [Inimigo {posicaoInimigo = (3,6)}]
+<span class="lineno">   18 </span>[Inimigo {posicaoInimigo = (3,6)}]
+<span class="lineno">   19 </span>
+<span class="lineno">   20 </span>&gt;&gt;&gt; inimigosNoAlcance (Torre {posicaoTorre = (2, 4), alcanceTorre = 10.2}) [Inimigo {posicaoInimigo = (20, 20)}]
+<span class="lineno">   21 </span>[]
+<span class="lineno">   22 </span>
+<span class="lineno">   23 </span>== __Propriedades:__
+<span class="lineno">   24 </span>prop&gt; Para cada inimigo na lista de output(dentro do range da torre), a distancia entre sua posiçao e a posicao da torre deve ser menor ou igual ao alcance da torre:
+<span class="lineno">   25 </span>    @
+<span class="lineno">   26 </span>    all (\Inimigo {posicaoInimigo = (xi, yi)} -&gt; sqrt ((xi - xt)^2 + (yi - yt)^2) &lt;= alcance) 
+<span class="lineno">   27 </span>        (inimigosNoAlcance (Torre {posicaoTorre = (xt, yt), alcanceTorre = alcance}) inimigos)
+<span class="lineno">   28 </span>    @
+<span class="lineno">   29 </span>
+<span class="lineno">   30 </span>prop&gt; Para cada inimigo na lista de output(fora do range da torre), a distancia entre a sua posicao e a posicao da torre precisa ser maior que o alcance da torre,logo ele nao estara no alcance(range) da torre e, portanto, fora da lista de output: 
+<span class="lineno">   31 </span>    @
+<span class="lineno">   32 </span>    all (\Inimigo {posicaoInimigo = (xi, yi)} -&gt; sqrt ((xi - xt)^2 + (yi - yt)^2) &gt; alcance) 
+<span class="lineno">   33 </span>        (inimigos \\ inimigosNoAlcance (Torre {posicaoTorre = (xt, yt), alcanceTorre = alcance}) inimigos)
+<span class="lineno">   34 </span>    @
+<span class="lineno">   35 </span>
+<span class="lineno">   36 </span>== __Função Auxiliar:__
+<span class="lineno">   37 </span>prop&gt; A funcao &quot;estaNoAlcance&quot; simplifica o calculo da distancia entre dois pontos(posicaoInimigo e posicaoTorre) para ser utilizada pelo filter
+<span class="lineno">   38 </span>
+<span class="lineno">   39 </span>    @
+<span class="lineno">   40 </span>    estaNoAlcance Inimigo {posicaoInimigo=(xi, yi)} = 
+<span class="lineno">   41 </span>        sqrt ((xi-xt)^(2::Int)+(yi-yt)^(2::Int))  &lt;= alcance
+<span class="lineno">   42 </span>    @
+<span class="lineno">   43 </span>-}
+<span class="lineno">   44 </span>inimigosNoAlcance :: Torre -&gt; [Inimigo] -&gt; [Inimigo]
+<span class="lineno">   45 </span><span class="decl"><span class="istickedoff">inimigosNoAlcance Torre {posicaoTorre=(xt,yt), alcanceTorre=alcance} = filter estaNoAlcance</span>
+<span class="lineno">   46 </span><span class="spaces">    </span><span class="istickedoff">where</span>
+<span class="lineno">   47 </span><span class="spaces">        </span><span class="istickedoff">estaNoAlcance Inimigo {posicaoInimigo=(xi, yi)} = sqrt ((xi-xt)^(2::Int)+(yi-yt)^(2::Int))  &lt;= alcance</span></span>
+<span class="lineno">   48 </span>
+<span class="lineno">   49 </span>
+<span class="lineno">   50 </span>
+<span class="lineno">   51 </span>{-| A funcao 'atingeInimigo' aplica o dano de uma torre a um inimigo específico, reduzindo sua vida 
+<span class="lineno">   52 </span>com base no dano da torre e atualizando a lista de projéteis ativos no inimigo com o respectivo projétil da torre.
+<span class="lineno">   53 </span>
+<span class="lineno">   54 </span>== __Exemplos de Aplicação:__
+<span class="lineno">   55 </span>&gt;&gt;&gt; atingeInimigo (Torre {danoTorre = 5, projetilTorre = Projetil {tipoProjetil = Fogo}, posicaoTorre = (0, 0), alcanceTorre = 10}) 
+<span class="lineno">   56 </span>                  (Inimigo {vidaInimigo = 10, projeteisInimigo = [Projetil {tipoProjetil = Gelo}], posicaoInimigo = (3, 3)})
+<span class="lineno">   57 </span>Inimigo {vidaInimigo = 5, projeteisInimigo = [Projetil {tipoProjetil = Fogo}, Projetil {tipoProjetil = Gelo}], posicaoInimigo = (3, 3)}
+<span class="lineno">   58 </span>
+<span class="lineno">   59 </span>&gt;&gt;&gt; atingeInimigo (Torre {danoTorre = 15, projetilTorre = Projetil {tipoProjetil = Gelo}, posicaoTorre = (0, 0), alcanceTorre = 10}) 
+<span class="lineno">   60 </span>                  (Inimigo {vidaInimigo = 10, projeteisInimigo = [], posicaoInimigo = (3, 3)})
+<span class="lineno">   61 </span>Inimigo {vidaInimigo = 0, projeteisInimigo = [Projetil {tipoProjetil = Gelo}], posicaoInimigo = (3, 3)}
+<span class="lineno">   62 </span>
+<span class="lineno">   63 </span>== __Propriedades:__
+<span class="lineno">   64 </span>prop&gt; A vida atualizada do inimigo nunca será negativa:
+<span class="lineno">   65 </span>@   novaVida = max 0 (vida - dano)@
+<span class="lineno">   66 </span>
+<span class="lineno">   67 </span>
+<span class="lineno">   68 </span>== __Funcoes Auxiliares:__
+<span class="lineno">   69 </span>* Função 'atualizaProjeteis'
+<span class="lineno">   70 </span>* Função 'combinaComExistentes'
+<span class="lineno">   71 </span>-}
+<span class="lineno">   72 </span>atingeInimigo :: Torre -&gt; Inimigo -&gt; Inimigo
+<span class="lineno">   73 </span><span class="decl"><span class="istickedoff">atingeInimigo Torre {danoTorre=dano, projetilTorre=projetilImpacto} inimigo@Inimigo {vidaInimigo=vida, projeteisInimigo=projeteisAtivos} = inimigo {vidaInimigo = <span class="nottickedoff">novaVida</span>, projeteisInimigo = <span class="nottickedoff">novaListaProjeteis</span>}</span>
+<span class="lineno">   74 </span><span class="spaces">  </span><span class="istickedoff">where</span>
+<span class="lineno">   75 </span><span class="spaces">    </span><span class="istickedoff"><span class="nottickedoff">novaVida = max 0 (vida - dano)</span>                                                            -- evita valores negativos na nova vida depois de ser atingido</span>
+<span class="lineno">   76 </span><span class="spaces">    </span><span class="istickedoff"><span class="nottickedoff">novaListaProjeteis = atualizaProjeteis projetilImpacto projeteisAtivos</span></span></span>                    {- Atualiza a &quot;projeteisInimigo&quot; com a novaListaProjeteis, decomposta em 3 variáveis (projetilImpacto da Torre, atualizaProjeteis 
+<span class="lineno">   77 </span>                                                                                                que é responsável por atualizar a lista dos projeteis e projeteisAtivos) possibilitando as regras de sinergias-}
+<span class="lineno">   78 </span>
+<span class="lineno">   79 </span>
+<span class="lineno">   80 </span>
+<span class="lineno">   81 </span>{-| A função 'atualizaProjeteis' adiciona um novo projétil a uma lista de projéteis ativos de um inimigo.
+<span class="lineno">   82 </span>
+<span class="lineno">   83 </span>== __Exemplos de Aplicação:__
+<span class="lineno">   84 </span>
+<span class="lineno">   85 </span>&gt;&gt;&gt; atualizaProjeteis (Projetil {tipoProjetil = Fogo}) [Projetil {tipoProjetil = Gelo}]
+<span class="lineno">   86 </span>[Projetil {tipoProjetil = Fogo}, Projetil {tipoProjetil = Gelo}]
+<span class="lineno">   87 </span>
+<span class="lineno">   88 </span>&gt;&gt;&gt; atualizaProjeteis (Projetil {tipoProjetil = Resina}) []
+<span class="lineno">   89 </span>[Projetil {tipoProjetil = Resina}]
+<span class="lineno">   90 </span>-}
+<span class="lineno">   91 </span>atualizaProjeteis :: Projetil -&gt; [Projetil] -&gt; [Projetil]
+<span class="lineno">   92 </span><span class="decl"><span class="nottickedoff">atualizaProjeteis impacto [] = [impacto]</span>
+<span class="lineno">   93 </span><span class="spaces"></span><span class="nottickedoff">atualizaProjeteis impacto@(Projetil tipoImpacto duracaoImpacto) projeteis =</span>
+<span class="lineno">   94 </span><span class="spaces">    </span><span class="nottickedoff">case tipoImpacto of</span>
+<span class="lineno">   95 </span><span class="spaces"></span><span class="nottickedoff"></span>
+<span class="lineno">   96 </span><span class="spaces">        </span><span class="nottickedoff">Fogo -&gt;</span>
+<span class="lineno">   97 </span><span class="spaces">            </span><span class="nottickedoff">if any (\p -&gt; tipoProjetil p == Gelo) projeteis then                              -- se o projetil anterior for igual ao gelo, retira o gelo e o fogo não é adicionado</span>
+<span class="lineno">   98 </span><span class="spaces">                </span><span class="nottickedoff">[p | p &lt;- projeteis, tipoProjetil p /= Gelo]                                  -- cria uma lista de projeteis, removendo Gelo (o Projetil de fogo não é adicionado 0=0)</span>
+<span class="lineno">   99 </span><span class="spaces">            </span><span class="nottickedoff">else if any (\p -&gt; tipoProjetil p == Resina) projeteis then                       </span>
+<span class="lineno">  100 </span><span class="spaces">                </span><span class="nottickedoff">let novaDuracao = case duracaoImpacto of</span>
+<span class="lineno">  101 </span><span class="spaces">                        </span><span class="nottickedoff">Finita d -&gt; Finita (d * 2)                                            -- a duração do efeito de fogo vai ser dobrada se o precursor dele for resina</span>
+<span class="lineno">  102 </span><span class="spaces">                        </span><span class="nottickedoff">Infinita -&gt; Infinita</span>
+<span class="lineno">  103 </span><span class="spaces">                </span><span class="nottickedoff">in Projetil Fogo novaDuracao : [p | p &lt;- projeteis, tipoProjetil p /= Resina] -- Dobra a duração e remove Resina</span>
+<span class="lineno">  104 </span><span class="spaces">            </span><span class="nottickedoff">else combinaComExistentes impacto projeteis</span>
+<span class="lineno">  105 </span><span class="spaces"></span><span class="nottickedoff"></span>
+<span class="lineno">  106 </span><span class="spaces">        </span><span class="nottickedoff">Gelo -&gt;</span>
+<span class="lineno">  107 </span><span class="spaces">            </span><span class="nottickedoff">if any (\p -&gt; tipoProjetil p == Fogo) projeteis then</span>
+<span class="lineno">  108 </span><span class="spaces">                </span><span class="nottickedoff">[p | p &lt;- projeteis, tipoProjetil p /= Fogo]                                  -- cria uma lista de projeteis, removendo Fogo (o Projetil de Gelo também não é adicionado 0=0)</span>
+<span class="lineno">  109 </span><span class="spaces">            </span><span class="nottickedoff">else combinaComExistentes impacto projeteis</span>
+<span class="lineno">  110 </span><span class="spaces"></span><span class="nottickedoff"></span>
+<span class="lineno">  111 </span><span class="spaces">        </span><span class="nottickedoff">Resina -&gt; combinaComExistentes impacto projeteis</span></span>                                      
+<span class="lineno">  112 </span>
+<span class="lineno">  113 </span>
+<span class="lineno">  114 </span>
+<span class="lineno">  115 </span>{-|A função 'combinaComExistentes' verifica se dois projéteis possuem o mesmo tipo e as suas possiveis 'Sinergias'.
+<span class="lineno">  116 </span>
+<span class="lineno">  117 </span>== __Exemplos de Aplicação:__
+<span class="lineno">  118 </span>
+<span class="lineno">  119 </span>&gt;&gt;&gt; combinaComExistentes (Projetil {tipoProjetil = Fogo, duracaoProjetil = Finita 3}) 
+<span class="lineno">  120 </span>                         [Projetil {tipoProjetil = Fogo, duracaoProjetil = Finita 2}]
+<span class="lineno">  121 </span>[Projetil {tipoProjetil = Fogo, duracaoProjetil = Finita 5}]
+<span class="lineno">  122 </span>
+<span class="lineno">  123 </span>&gt;&gt;&gt; combinaComExistentes (Projetil {tipoProjetil = Gelo, duracaoProjetil = Infinita}) 
+<span class="lineno">  124 </span>                         [Projetil {tipoProjetil = Fogo, duracaoProjetil = Finita 3}]
+<span class="lineno">  125 </span>[Projetil {tipoProjetil = Fogo, duracaoProjetil = Finita 3}, Projetil {tipoProjetil = Gelo, duracaoProjetil = Infinita}]
+<span class="lineno">  126 </span>-}
+<span class="lineno">  127 </span>combinaComExistentes :: Projetil -&gt; [Projetil] -&gt; [Projetil]
+<span class="lineno">  128 </span><span class="decl"><span class="nottickedoff">combinaComExistentes projetil [] = [projetil]</span>
+<span class="lineno">  129 </span><span class="spaces"></span><span class="nottickedoff">combinaComExistentes (Projetil tipoImpacto duracaoImpacto) (p:ps)</span>
+<span class="lineno">  130 </span><span class="spaces">    </span><span class="nottickedoff">| tipoProjetil p == tipoImpacto =</span>
+<span class="lineno">  131 </span><span class="spaces">        </span><span class="nottickedoff">let novaDuracao = case (duracaoImpacto, duracaoProjetil p) of</span>
+<span class="lineno">  132 </span><span class="spaces">                </span><span class="nottickedoff">(Infinita, _) -&gt; Infinita</span>
+<span class="lineno">  133 </span><span class="spaces">                </span><span class="nottickedoff">(_, Infinita) -&gt; Infinita</span>
+<span class="lineno">  134 </span><span class="spaces">                </span><span class="nottickedoff">(Finita d1, Finita d2) -&gt; Finita (d1 + d2)</span>
+<span class="lineno">  135 </span><span class="spaces">        </span><span class="nottickedoff">in Projetil tipoImpacto novaDuracao : ps</span>
+<span class="lineno">  136 </span><span class="spaces">    </span><span class="nottickedoff">| otherwise = p : combinaComExistentes (Projetil tipoImpacto duracaoImpacto) ps</span></span>
+<span class="lineno">  137 </span>
+<span class="lineno">  138 </span>
+<span class="lineno">  139 </span>
+<span class="lineno">  140 </span>{-| A função 'ativaInimigo' tem como objetivo receber um portal, ativando inimigos da onda atual 
+<span class="lineno">  141 </span>para adicioná-los à lista de inimigos ativos. 
+<span class="lineno">  142 </span>Se a onda atual do portal não possuir mais inimigos, a função avança para a próxima onda. 
+<span class="lineno">  143 </span>Caso o portal não tenha ondas restantes, nenhum inimigo é ativado!!
+<span class="lineno">  144 </span>
+<span class="lineno">  145 </span>== __Exemplos de Aplicação:__
+<span class="lineno">  146 </span>
+<span class="lineno">  147 </span>&gt;&gt;&gt;let portal = Portal { ondasPortal = [Onda { inimigosOnda = [Inimigo {posicaoInimigo = (0,0)}] }]}
+<span class="lineno">  148 </span>&gt;&gt;&gt; ativaInimigo portal []
+<span class="lineno">  149 </span>(Portal { ondasPortal = [Onda { inimigosOnda = [] }] }, [Inimigo {posicaoInimigo = (0,0)}])
+<span class="lineno">  150 </span>
+<span class="lineno">  151 </span>&gt;&gt;&gt;let portal = Portal { ondasPortal = [Onda { inimigosOnda = [] }, Onda { inimigosOnda = [Inimigo {posicaoInimigo = (1,1)}] }]}
+<span class="lineno">  152 </span>&gt;&gt;&gt; ativaInimigo portal []
+<span class="lineno">  153 </span>(Portal { ondasPortal = [Onda { inimigosOnda = [Inimigo {posicaoInimigo = (1,1)}] }] }, [])
+<span class="lineno">  154 </span>
+<span class="lineno">  155 </span>&gt;&gt;&gt;let portal = Portal { ondasPortal = [] }
+<span class="lineno">  156 </span>&gt;&gt;&gt; ativaInimigo portal []
+<span class="lineno">  157 </span>(Portal { ondasPortal = [] }, [])
+<span class="lineno">  158 </span>
+<span class="lineno">  159 </span>== __Propriedades:__
+<span class="lineno">  160 </span>
+<span class="lineno">  161 </span>prop&gt; Para um portal sem ondas, a lista de inimigos ativos permanece inalterada
+<span class="lineno">  162 </span>prop&gt; Após a ativação, o portal nunca mantém a mesma lista de inimigos na onda atual, pois esses inimigos sao inseridos no mapa
+<span class="lineno">  163 </span>-}
+<span class="lineno">  164 </span>ativaInimigo :: Portal -&gt; [Inimigo] -&gt; (Portal, [Inimigo])
+<span class="lineno">  165 </span><span class="decl"><span class="istickedoff">ativaInimigo portal inimigosAtivos = case ondasPortal portal of</span>
+<span class="lineno">  166 </span><span class="spaces">    </span><span class="istickedoff">[] -&gt; <span class="nottickedoff">(portal, inimigosAtivos)</span> -- Nenhuma onda para ativar</span>
+<span class="lineno">  167 </span><span class="spaces">    </span><span class="istickedoff">(ondaAtual:restoOndas) -&gt; case inimigosOnda ondaAtual of</span>
+<span class="lineno">  168 </span><span class="spaces">        </span><span class="istickedoff">[] -&gt; <span class="nottickedoff">(portal { ondasPortal = restoOndas }, inimigosAtivos)</span> -- Onda atual está vazia, passa para a próxima</span>
+<span class="lineno">  169 </span><span class="spaces">        </span><span class="istickedoff">(inimigoAtual:restoInimigos) -&gt;</span>
+<span class="lineno">  170 </span><span class="spaces">            </span><span class="istickedoff">let novaOnda = ondaAtual { inimigosOnda = restoInimigos }</span>
+<span class="lineno">  171 </span><span class="spaces">                </span><span class="istickedoff">novoPortal = portal { ondasPortal = novaOnda : restoOndas }</span>
+<span class="lineno">  172 </span><span class="spaces">                </span><span class="istickedoff">novoInimigosAtivos = inimigoAtual : <span class="nottickedoff">inimigosAtivos</span></span>
+<span class="lineno">  173 </span><span class="spaces">            </span><span class="istickedoff">in (novoPortal, novoInimigosAtivos)</span></span>
+<span class="lineno">  174 </span>
+<span class="lineno">  175 </span>
+<span class="lineno">  176 </span>
+<span class="lineno">  177 </span>{-| A função 'terminouJogo' verifica se o jogo atingiu uma condição de término. 
+<span class="lineno">  178 </span>O jogo termina se:
+<span class="lineno">  179 </span>
+<span class="lineno">  180 </span>    1. O jogador perdeu, condição indicada pela função auxiliar 'perdeuJogo'.
+<span class="lineno">  181 </span>    2. O jogador ganhou, condição indicada pela função auxiliar 'ganhouJogo'.
+<span class="lineno">  182 </span>
+<span class="lineno">  183 </span>== __Exemplos de Aplicação:__
+<span class="lineno">  184 </span>
+<span class="lineno">  185 </span>&gt;&gt;&gt;let jogoPerdido = Jogo {...} -- Um jogo onde a base foi destruída
+<span class="lineno">  186 </span>&gt;&gt;&gt; terminouJogo jogoPerdido
+<span class="lineno">  187 </span>True
+<span class="lineno">  188 </span>
+<span class="lineno">  189 </span>&gt;&gt;&gt; let jogoGanho = Jogo {...} -- Um jogo onde todos os inimigos foram derrotados
+<span class="lineno">  190 </span>&gt;&gt;&gt; terminouJogo jogoGanho
+<span class="lineno">  191 </span>True
+<span class="lineno">  192 </span>
+<span class="lineno">  193 </span>&gt;&gt;&gt; let jogoEmAndamento = Jogo {...} -- Um jogo ainda em progresso
+<span class="lineno">  194 </span>&gt;&gt;&gt; terminouJogo jogoEmAndamento
+<span class="lineno">  195 </span>False
+<span class="lineno">  196 </span>
+<span class="lineno">  197 </span>== __Propriedades:__
+<span class="lineno">  198 </span>
+<span class="lineno">  199 </span>prop&gt; Um jogo em que nem 'perdeuJogo' nem 'ganhouJogo' é verdadeiro deve retornar False
+<span class="lineno">  200 </span>prop&gt; Um jogo em que 'terminouJogo' é True implica que pelo menos uma das condições de término foi atingida, ou ganhou ou perdeu
+<span class="lineno">  201 </span>-}
+<span class="lineno">  202 </span>terminouJogo :: Jogo -&gt; Bool
+<span class="lineno">  203 </span><span class="decl"><span class="istickedoff">terminouJogo jogo = perdeuJogo jogo || ganhouJogo jogo</span></span>      -- Para terminar, o jogador precisa ter ganhado ou perdido
+<span class="lineno">  204 </span>
+<span class="lineno">  205 </span>
+<span class="lineno">  206 </span>
+<span class="lineno">  207 </span>{-| A função 'ganhouJogo' verifica se o jogador venceu o jogo. O jogo é considerado ganho se:
+<span class="lineno">  208 </span>   
+<span class="lineno">  209 </span>    1. A base do jogador tem vida superior a zero (indicado por 'vidaBase').
+<span class="lineno">  210 </span>    2. Não há inimigos restantes no jogo (indicados por 'inimigosJogo' do jogo).
+<span class="lineno">  211 </span>    3. Todas as ondas dos portais estão sem inimigos (verificado pela função auxiliar 'semInimigos').
+<span class="lineno">  212 </span>
+<span class="lineno">  213 </span>== __Exemplos de Aplicação:__
+<span class="lineno">  214 </span>
+<span class="lineno">  215 </span>&gt;&gt;&gt; let jogoGanho = Jogo { baseJogo = Base { vidaBase = 10 }, inimigosJogo = [], portaisJogo = [Portal { ondasPortal = [Onda { inimigosOnda = [] }]}]}
+<span class="lineno">  216 </span>&gt;&gt;&gt; ganhouJogo jogoGanho
+<span class="lineno">  217 </span>True
+<span class="lineno">  218 </span>
+<span class="lineno">  219 </span>&gt;&gt;&gt; let jogoNaoGanho = Jogo { baseJogo = Base { vidaBase = 10 }, inimigosJogo = [Inimigo {...}], portaisJogo = [Portal { ondasPortal = [Onda { inimigosOnda = [Inimigo {...}] }] }]}
+<span class="lineno">  220 </span>&gt;&gt;&gt; ganhouJogo jogoNaoGanho
+<span class="lineno">  221 </span>False
+<span class="lineno">  222 </span>
+<span class="lineno">  223 </span>== __Propriedades:__
+<span class="lineno">  224 </span>
+<span class="lineno">  225 </span>prop&gt; Um jogo onde a base tem vida &gt; 0, não há inimigos e todas as ondas estão sem inimigos é considerado &quot;ganho&quot;.
+<span class="lineno">  226 </span>
+<span class="lineno">  227 </span>== __Funcao Auxiliar:__
+<span class="lineno">  228 </span>* Função 'semInimigos' 
+<span class="lineno">  229 </span>-}
+<span class="lineno">  230 </span>ganhouJogo :: Jogo -&gt; Bool
+<span class="lineno">  231 </span><span class="decl"><span class="istickedoff">ganhouJogo jogo = vidaBase (baseJogo jogo) &gt; 0 &amp;&amp; null (inimigosJogo jogo) &amp;&amp; all semInimigos (portaisJogo jogo)</span></span> --Condição para ganhar o jogo, base com vida &gt; 0 e sem inimigos restantes em jogo, bem como nas ondas
+<span class="lineno">  232 </span>
+<span class="lineno">  233 </span>
+<span class="lineno">  234 </span>
+<span class="lineno">  235 </span>{-| A função 'semInimigos' verifica se um portal não possui inimigos em suas ondas. Um portal é considerado sem inimigos se todas as ondas dentro do portal não tiverem inimigos nelas.
+<span class="lineno">  236 </span>
+<span class="lineno">  237 </span>== __Exemplos de Aplicação:__
+<span class="lineno">  238 </span>
+<span class="lineno">  239 </span>&gt;&gt;&gt; let portalSemInimigos = Portal { ondasPortal = [Onda { inimigosOnda = [] }]}
+<span class="lineno">  240 </span>&gt;&gt;&gt; semInimigos portalSemInimigos
+<span class="lineno">  241 </span>True
+<span class="lineno">  242 </span>
+<span class="lineno">  243 </span>&gt;&gt;&gt; let portalComInimigos = Portal { ondasPortal = [Onda { inimigosOnda = [Inimigo {...}] }]}
+<span class="lineno">  244 </span>&gt;&gt;&gt; semInimigos portalComInimigos
+<span class="lineno">  245 </span>False
+<span class="lineno">  246 </span>-}
+<span class="lineno">  247 </span>semInimigos :: Portal -&gt; Bool
+<span class="lineno">  248 </span><span class="decl"><span class="istickedoff">semInimigos portal = null inimigosOndas</span>
+<span class="lineno">  249 </span><span class="spaces">    </span><span class="istickedoff">where ondas = ondasPortal portal</span>
+<span class="lineno">  250 </span><span class="spaces">          </span><span class="istickedoff">inimigosOndas = map <span class="nottickedoff">inimigosOnda</span> ondas</span></span>
+<span class="lineno">  251 </span>
+<span class="lineno">  252 </span>
+<span class="lineno">  253 </span>
+<span class="lineno">  254 </span>{-| A função 'perdeuJogo' verifica se o jogador perdeu o jogo. O jogo é considerado &quot;perdido&quot; se a vida da base do jogador for menor ou igual a zero.
+<span class="lineno">  255 </span>
+<span class="lineno">  256 </span>== __Exemplos de Aplicação:__
+<span class="lineno">  257 </span>
+<span class="lineno">  258 </span>&gt;&gt;&gt; let jogoPerdido = Jogo { baseJogo = Base { vidaBase = 0 }, inimigosJogo = [], portaisJogo = [] }
+<span class="lineno">  259 </span>&gt;&gt;&gt; perdeuJogo jogoPerdido
+<span class="lineno">  260 </span>True
+<span class="lineno">  261 </span>
+<span class="lineno">  262 </span>&gt;&gt;&gt; let jogoNaoPerdido = Jogo { baseJogo = Base { vidaBase = 10 }, inimigosJogo = [], portaisJogo = [] }
+<span class="lineno">  263 </span>&gt;&gt;&gt; perdeuJogo jogoNaoPerdido
+<span class="lineno">  264 </span>False
+<span class="lineno">  265 </span>
+<span class="lineno">  266 </span>== __Propriedades:__
+<span class="lineno">  267 </span>
+<span class="lineno">  268 </span>prop&gt; Um jogo é perdido quando a vida da base for menor ou igual a zero.
+<span class="lineno">  269 </span>-}
+<span class="lineno">  270 </span>
+<span class="lineno">  271 </span>perdeuJogo :: Jogo -&gt; Bool
+<span class="lineno">  272 </span><span class="decl"><span class="istickedoff">perdeuJogo jogo = vidaBase (baseJogo jogo) &lt;= 0</span></span>             -- Condição para perder o jogo (vida da base &lt;= 0)
+
+</pre>
+</body>
+</html>
